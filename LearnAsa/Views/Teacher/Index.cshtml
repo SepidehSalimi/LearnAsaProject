@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "ثبت استاد";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Links{
+    <link rel="stylesheet" type="text/css" href="~/vendors/dropify/css/dropify.min.css">
+  
+}
+
+<div id="basic-form" class="card card card-default scrollspy">
+    <div class="card-content">
+        <h4 class="card-title">فرم ثبت استاد</h4>
+        <form asp-action="create" enctype="multipart/form-data" method="post">
+            <div class="row red-text" asp-validation-summary="All">
+            </div>
+            <div class="row">
+
+                <div class="input-field col s12">
+                    <input type="text" id="name" name="name">
+                    <label class="contact-input" for="fn">نام</label>
+                    @* <span asp-validation-for="name" class="red-text"></span> *@
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="family" name="family">
+                    <label class="contact-input" for="fn">نام خانوادگی</label>
+                    @* <span asp-validation-for="family" class="red-text"></span> *@
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" name="email">
+                    <label class="contact-input" for="email">ایمیل</label>
+                    @* <span asp-validation-for="email" class="red-text"></span> *@
+                </div>
+            </div>
+
+           
+            <div class="row">
+                <div class="col m12">
+                    <label>عکس</label>
+                    <input name="pic" type="file" id="pic" class="dropify" data-default-file="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                        ارسال
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
+    <script src="/vendors/dropify/js/dropify.min.js"></script>
+}

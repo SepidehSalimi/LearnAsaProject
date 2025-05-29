@@ -1,0 +1,17 @@
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\DAL.deps.json
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\DAL.runtimeconfig.json
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\DAL.dll
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\DAL.pdb
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\BE.dll
+F:\project-LearnAsa\LearnAsa\DAL\bin\Debug\net8.0\BE.pdb
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.csproj.AssemblyReference.cache
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.AssemblyInfoInputs.cache
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.AssemblyInfo.cs
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.csproj.CoreCompileInputs.cache
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.csproj.CopyComplete
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.dll
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\refint\DAL.dll
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.pdb
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
+F:\project-LearnAsa\LearnAsa\DAL\obj\Debug\net8.0\ref\DAL.dll

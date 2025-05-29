@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<BE.Teacher>
+
+@{
+}
+<table id="myTable" class="table striped responsive-table centered">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>ایمیل</th>
+            <th style="height:150px!important;width:150px!important;">عکس</th>
+            <th>دستورات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.name</td>
+                <td>@i.family</td>
+                <td>@i.email</td>
+                <td style="height:150px!important;width:150px!important;"> <img src="/images/teacher/@i.pic" id="@i.pic" width="150" height="150" /></td>
+                <td>
+                    <a class="modal-trigger btnEdit btn blue waves-button-input">ویرایش</a>
+                    <a class="modal-trigger btnDelete btn red waves-button-input">حذف</a>
+
+                </td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,89 @@
+﻿@model BE.course
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container my-5">
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+            <form asp-action="AddToBasket" asp-controller="Course" method="post">  
+                <input name="courseId" hidden asp-for="id" /> 
+                <img src="~/images/bg-course.jpeg" class="img-fluid" alt="HTML">
+                <ul class="list-group text-center list-group-flush custom-list-group">
+                    <li class="list-group-item font-13">عنوان دوره : @Model.title</li>
+                    <li class="list-group-item font-13">
+                        <div class="my-2" style="text-align:center">اساتید</div>
+                        @foreach (var item in Model.courseteachers)
+                        {
+                            <div class="my-1" style="text-align:center">@item.teacher.name @item.teacher.family</div>
+                        }
+                    </li>
+                    <li class="list-group-item font-13">قیمت دوره : @Model.price تومان</li>
+                </ul>
+                <button  class="btn btn-info btn-block mt-3 py-2 font-12"><i class="fa fa-cart-plus align-middle"></i> افزودن به سبد خرید</button>
+            </form>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header bg-white px-0 course-table">
+                    <ul class="nav nav-justified pr-0">
+                        <li class="nav-item"><a href="#course-info" class="nav-link active font-14" data-toggle="list">معرفی دوره</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="course-info">
+                            <!-- Start course info -->
+
+                            <h1 class="mb-3 text-info">@Model.title</h1>
+
+                            <video src="@Model.videointro" controls class="embed-responsive embed-responsive-item"></video>
+
+                            <p class="text-justify course-text vazir font-14 my-5">
+                               توضیحات دوره : @Model.descript
+                            </p>
+
+@*                             <h6 class="mb-3 mt-3">سر فصل ها :</h6>
+
+                            <div class="mb-2 course-items px-2 py-4 d-flex align-items-center">
+                                <span class="bg-info count text-center text-white mr-3 font-13">1</span>
+                                <span class="mr-3 font-13">ساختار اصلی html - ابزار های مورد نیاز برای یادگیری - معرفی نرم افزار</span>
+                            </div>
+
+                            <div class="mb-2 course-items px-2 py-4 d-flex align-items-center">
+                                <span class="bg-info count text-center text-white mr-3 font-13">2</span>
+                                <span class="mr-3 font-13">آشنایی با تگ ها ، معرفی برخی از تگ ها ، دسته بندی تگ ها ، ساختار تگ های Index </span>
+                            </div>
+
+                            <div class="mb-2 course-items px-2 py-4 d-flex align-items-center">
+                                <span class="bg-info count text-center text-white mr-3 font-13">3</span>
+                                <span class="mr-3 font-13">نرم ا فزار استفاده شده در اموزش ، ایجاد سند ، tag a و tag p و تشریح کد های html - t head body </span>
+                            </div>
+
+                            <div class="mb-2 course-items px-2 py-4 d-flex align-items-center">
+                                <span class="bg-info count text-center text-white mr-3 font-13">4</span>
+                                <span class="mr-3 font-13">آشنایی کامل با اَتریبیوت ها در Html 5 </span>
+                            </div>
+
+                            <div class="mb-2 course-items px-2 py-4 d-flex align-items-center product-link">
+                                <span class="bg-info count text-center text-white mr-3 font-13">5</span>
+                                <span class="mr-3 font-13">کار با متون در html 5 ، تگ p ، تگ h ، تگ span ، تگ hr و بررسی تفاوت ها و کاربرد های مخصوص هر تگ </span>
+                            </div>
+ *@
+                        </div><!-- End course info -->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+                                            

@@ -1,0 +1,12 @@
+F:\project-LearnAsa\LearnAsa\BE\bin\Debug\net8.0\BE.deps.json
+F:\project-LearnAsa\LearnAsa\BE\bin\Debug\net8.0\BE.dll
+F:\project-LearnAsa\LearnAsa\BE\bin\Debug\net8.0\BE.pdb
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.csproj.AssemblyReference.cache
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.GeneratedMSBuildEditorConfig.editorconfig
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.AssemblyInfoInputs.cache
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.AssemblyInfo.cs
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.csproj.CoreCompileInputs.cache
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.dll
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\refint\BE.dll
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\BE.pdb
+F:\project-LearnAsa\LearnAsa\BE\obj\Debug\net8.0\ref\BE.dll

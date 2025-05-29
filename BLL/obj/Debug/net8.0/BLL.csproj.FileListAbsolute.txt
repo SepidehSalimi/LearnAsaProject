@@ -1,0 +1,17 @@
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\BLL.deps.json
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\BLL.dll
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\BLL.pdb
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\BE.dll
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\DAL.dll
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\BE.pdb
+F:\project-LearnAsa\LearnAsa\BLL\bin\Debug\net8.0\DAL.pdb
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.csproj.AssemblyReference.cache
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.AssemblyInfoInputs.cache
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.AssemblyInfo.cs
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.csproj.CoreCompileInputs.cache
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.csproj.CopyComplete
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.dll
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\refint\BLL.dll
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\BLL.pdb
+F:\project-LearnAsa\LearnAsa\BLL\obj\Debug\net8.0\ref\BLL.dll

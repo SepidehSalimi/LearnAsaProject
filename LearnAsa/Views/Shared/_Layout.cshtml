@@ -1,0 +1,285 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using DAL;
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using BLL;
+@using BE;
+@inject UserManager<AppUser> usermanager
+@inject IHttpContextAccessor httpContextAccessor
+
+
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> لرن آسا سایت آموزشی در حوضه برنامه نویسی</title>
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap-rtl.css">
+    <link rel="stylesheet" href="~/css/customcss/style.css">
+    <link rel="stylesheet" href="~/css/fontawesome/css/all.css">
+    @RenderSection("Links", required: false)
+</head>
+<body>
+    <header class="bg-white">
+        <div class="container">
+            <div class="row pb-3">
+
+                <div class="d-none d-lg-block col-lg-2">
+                    <img src="~/images/logoo.png" alt="Learnasa" title="Learnasa" class="img-fluid">
+                </div>
+
+                <div class="d-none d-lg-flex col-lg-6 align-items-center search-box">
+                    <form action="" method="">
+                        <div class="input-group">
+                            <input type="search" name="" class="form-control rounded-pill" placeholder="عنوان مورد نظر خود را جستجو کنید ...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-info rounded-pill font-13">جستجو</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-none d-lg-flex col-lg-4 align-items-center justify-content-end">
+
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var user = usermanager.GetUserAsync(User).Result;
+                        var coursesInBasket = new List<course>();
+                        var jsonItems = httpContextAccessor.HttpContext.Session.GetString("basket");
+
+                        if (jsonItems != null)
+                        {
+                            coursesInBasket = JsonConvert.DeserializeObject<List<course>>(jsonItems);
+                        }
+
+
+
+                        <a class="mx-2 font-13 vazir-med-fa">@user.FirstName @user.LastName</a>
+
+                        <a href="#" class="cart mt-2 ml-2 dropdown" data-toggle="dropdown">
+
+                            @if (coursesInBasket.Count > 0)
+                            {
+                                <span class="badge badge-info badge-pill">@coursesInBasket.Count</span>
+
+                                <i class="fa fa-shopping-basket"></i>
+                            }
+
+                            <div class="dropdown-menu dropdown-cart mt-3">
+                                <ul class="list-unstyled">
+
+
+                                    @foreach (var course in coursesInBasket)
+                                    {
+                                        <li>
+                                            <img style="width:50px; height:50px;" src="~/images/bg-course.jpeg" class="m-1 ml-3">
+                                            <div class="float-right">
+                                                <small class=" mt-3 mr-2 d-block">@course.title (@course.price تومان)</small>
+                                            </div>
+                                        </li>
+                                    }
+
+                                    <li>
+                                        <a asp-action="Index" asp-controller="Profile" asp-route-ShowBasket="active"  class="btn btn-info m-1 ml-3 font-12">پرداخت</a>
+                                        <div class="float-right">
+                                            <small class=" mt-3 mr-2 d-block">قیمت کل : @coursesInBasket.Sum(s => s.price) تومان</small>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+
+                        <a asp-action="logout" asp-controller="account" class="btn btn-outline-info font-13 vazir-med-fa"><i class="fa fa-power-off pl-1"></i>خروج</a>
+
+                    }
+                    else
+                    {
+
+                        <a asp-action="Register" asp-controller="Account" class="btn btn-outline-info font-13 vazir-med-fa"><i class="fa fa-user-plus pl-1"></i>ثبت نام</a>
+                        <a asp-action="Login" asp-controller="Account" class="btn btn-info font-13 vazir-med-fa mx-2">ورود</a>
+                        <a asp-action="Index" asp-controller="Teacher" class="btn btn-primary font-13 vazir-med-fa">مدرس شوید</a>
+                    }
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <!----- Start mobile header ----->
+
+                <div class="col-12 d-flex d-lg-none justify-content-center">
+                    <img src="images/logonomy-1711705551118.jpeg" alt="Learnasa" alt="Learnasa">
+                </div>
+
+                <div class="col-12 d-flex d-lg-none justify-content-center mb-4 mobile-header">
+                    <a href="sign-up.html" class="border-left ml-3"><i class="fa fa-user-plus ml-3"></i></a>
+                    <a href="login.html" class="border-left ml-3"><i class="fa fa-lock ml-3"></i></a>
+                    <a href="teach.html" class="border-left ml-3"><i class="fa fa-graduation-cap ml-3"></i></a>
+                    <a href="#" class="border-left ml-3 dropdown" data-toggle="dropdown">
+                        <span class="badge badge-info badge-pill">2</span><i class="fa fa-shopping-basket ml-3"></i>
+                        <div class="dropdown-menu  dropdown-cart mt-3 mx-5">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <img src="images/bootstrap.jpg" class="m-1 ml-3">
+                                    <div class="float-right">
+                                        <small class=" mt-3 mr-2 d-block">آموزش جامع Bootstrap 4 (64.000 تومان)</small>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="images/php-security-2.png" class="m-1 ml-3">
+                                    <div class="float-right">
+                                        <small class=" mt-3 mr-2 d-block">آموزش امنیت در PHP (64.000 تومان)</small>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button class="btn btn-info m-1 ml-3 font-12">پرداخت</button>
+                                    <div class="float-right">
+                                        <small class=" mt-3 mr-2 d-block">قیمت کل : 128.000 تومان</small>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                    <a href="#search" data-toggle="collapse"><i class="fa fa-search"></i></a>
+                </div>
+
+                <div id="search" class=" d-lg-none col-10 mx-auto collapse mb-4 justify-content-center">
+                    <form action="" method="">
+                        <div class="input-group">
+                            <input type="search" name="" class="form-control rounded-pill" placeholder="عنوان مورد نظر خود را جستجو کنید ...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-info rounded-pill font-13">جستجو</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!----- End mobile header ----->
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm sticky-top">
+
+        <div class="container">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#mainmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainmenu">
+                <ul class="navbar-nav pr-0 custom-navbar font-14 text-center">
+                    <li class="nav-item ml-3 custom-nav-item"><a asp-action="Index" asp-controller="Home" class="nav-link">صفحه اصلی</a></li>
+                    <li class="nav-item ml-3 dropdown custom-nav-item">
+                        <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">دوره های آموزشی</a>
+
+                        <div class="dropdown-menu custom-dropdown-menu dropdown-menu-right font-13 text-right">
+                            <a href="#" class="dropdown-item border-bottom py-2">دوره متخصص طراحی سایت</a>
+                            <a href="#" class="dropdown-item border-bottom py-2">دوره آموزش برنامه نویسی اندروید</a>
+                            <a href="#" class="dropdown-item border-bottom py-2">دوره آموزش پایتون</a>
+                            <a href="#" class="dropdown-item py-2">دوره جامع آموزش وردپرس</a>
+                        </div>
+
+                    </li>
+                    <li class="nav-item ml-3  custom-nav-item">
+
+                        <a asp-controller="Profile" asp-action="Index" class="nav-link py-2" id="userPanel">پنل کاربری</a>
+                       
+
+                    </li>
+                    <li class="nav-item ml-3 custom-nav-item"><a href="#" class="nav-link">بلاگ</a></li>
+                    <li class="nav-item ml-3 custom-nav-item"><a href="#" class="nav-link">تماس باما</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+  
+     <main role="main" class="pb-3">      
+            @RenderBody() 
+     </main>
+   
+
+    <footer class="bg-white">
+        <!----- Start footer ----->
+        <div class="container py-2">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <img src="images/logonomy-1711705551118.jpeg" alt="" class="img-fluid">
+                    <p class="text-justify font-14 vazir mb-4">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                        استفاده از طراحان گرافیک است.
+                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است.
+                    </p>
+                    <p class="font-14"><i class="fas fa-map-marker-alt text-muted ml-2"></i> ایران , تهران , زعفرانیه , ساختمان مهر</p>
+                    <p class="font-14"><i class="fas fa-envelope text-muted ml-2"></i> info@sitename.com</p>
+                    <p class="font-14"><i class="fa fa-phone text-muted ml-2"></i>021-12345678</p>
+                </div>
+
+                <div class="col-md-2 text-center footer-links">
+                    <span class="mt-5 mb-3 d-block font-14">دسترسی سریع</span>
+                    <ul class="list-unstyled">
+                        <li class="my-3"><a href="#">درباره ما</a></li>
+                        <li class="my-3"><a href="#">تماس با ما</a></li>
+                        <li class="my-3"><a href="#">سوالات متداول</a></li>
+                        <li class="my-3"><a href="#">تاریخچه سفارشات</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2 text-center footer-links">
+                    <span class="mt-5 mb-3 d-block font-14">لینک های مفید</span>
+                    <ul class="list-unstyled">
+                        <li class="my-3"><a href="#">حساب کاربری</a></li>
+                        <li class="my-3"><a href="#">بازپرداخت</a></li>
+                        <li class="my-3"><a href="#">تخفیف</a></li>
+                        <li class="my-3"><a href="#">رهگیری سفارش</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 search-box text-center">
+                    <h6 class="my-5">برای اطلاع از  تازه ترین ها به خبرنامه ما بپیوندید!</h6>
+                    <form action="" method="">
+                        <div class="input-group">
+                            <input type="search" name="" class="form-control rounded-pill" placeholder="ایمیل خود را وارد کنید ...">
+                            <div class="input-group-append">
+                                <button type="submit" name="" class="btn btn-info rounded-pill font-13">اشتراک</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-5 social-media">
+                        <a href="#"><i class="fab fa-instagram p-1" id="instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter bg-info p-1"></i></a>
+                        <a href="#"><i class="fab fa-youtube bg-danger p-1"></i></a>
+                        <a href="#"><i class="fab fa-telegram bg-primary p-1"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row justify-content-end">
+                <a class="topbutton"> <i class="fa fa-chevron-circle-up"> </i> </a>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <hr>
+                    <p class="text-muted font-14">© 1403 کلیه حقوق این سایت متعلق به لرن آسا است</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/myscript.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

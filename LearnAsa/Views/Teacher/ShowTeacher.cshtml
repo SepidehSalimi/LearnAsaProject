@@ -1,0 +1,319 @@
+﻿
+
+@model List<BE.Teacher>
+@{
+    ViewData["Title"] = "لیست اساتید";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section Links {
+  
+    <link rel="stylesheet" type="text/css" href="/vendors/flag-icon/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/select.dataTables.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/pages/data-tables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/dropify/css/dropify.min.css">
+
+}
+
+<div id="modal2" class="modal">
+    <div class="modal-content mb-5">
+        <div class="modal-header">
+            <h5 class="mt-0" id="modal-title">فرم حذف استاد</h5>
+        </div>
+        <div id="modal-body2">
+            <p>آیا مایل هستید استاد <span class="purple-text" id="tname"></span> <span class="purple-text" id="tfamily"></span> را حذف کنید؟</p>
+
+            <input type="hidden" name="id" id="deleteid" value="" />
+            <div class="input-field col s12">
+                <button class="btn red waves-effect waves-light right" type="button" id="dlbtn">
+                    بله
+                    <i class="material-icons right">send</i>
+                </button>
+                <button class="btn cyan waves-effect waves-light right " style="margin-left:5px" type="button" id="closeDelete">
+                    خیر
+                    <i class="material-icons right">cancel</i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="modal1" class="modal">
+    <div class="modal-content mb-5">
+        <div class="modal-header">
+            <h5 class="mt-0" id="modal-title">فرم تصحیح استاد</h5>
+        </div>
+        <div id="modal-body">
+            <form asp-action="update" asp-controller="Teacher" enctype="multipart/form-data" method="post" id="editForm">
+                <div class="row">
+                    <div class="col s12">
+                        <input type="hidden" name="id" id="id" value="" />
+                        <label class="contact-input">نام</label>
+                        <input type="text" id="name" name="name">
+
+                    </div>
+                
+             
+                    <div class="col s12">
+                        <label class="contact-input">نام خانوادگی</label>
+                        <input type="text" id="family" name="family">
+                    </div>
+          
+             
+                    <div class=" col s12">
+                        <label class="contact-input">ایمیل</label>
+                        <input id="email" type="email" name="email">
+                    </div>
+              
+               
+                    <div class="col m12">
+                        <label>عکس</label>
+                        <input name="pic" type="file" id="pic" class="dropify" />
+                    </div>
+                
+         
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                            تصحیح
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col s12">
+    <div class="container">
+        <div class="section section-data-tables">
+            <div class="card">
+                <div class="card-content">
+                    <p class="caption mb-0">
+                        <a asp-controller="teacher" asp-action="index" class=" btn 039be5 light-blue darken-1 border-round"><i class="material-icons">person_add ثبت استاد جدید</i></a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title">لیست اساتید</h4>
+                            <p>
+                                <input type="text" name="search" class="form-control col m3 " placeholder="جستجو کنید ..." id="searchInput" />
+                                
+
+                            </p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table id="myTable" class="table striped responsive-table centered">
+                                        <thead>
+                                            <tr>
+                                               
+                                                <th>نام</th>
+                                                <th>نام خانوادگی</th>
+                                                <th>ایمیل</th>
+                                                <th style="height:150px!important;width:150px!important;">عکس</th>
+                                                <th>دستورات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="myTable">
+                                            @{
+                                                foreach (var i in Model)
+                                                {
+                                                            <tr>
+                                                                <td hidden>@i.id</td>
+                                                                <td>@i.name</td>
+                                                                <td>@i.family</td>
+                                                                <td>@i.email</td>
+                                                                <td style="height:150px!important;width:150px!important;"> <img src="/images/teacher/@i.pic" id="@i.pic" width="150" height="150" /></td>
+                                                                <td>
+                                                                    <a class="modal-trigger btnEdit btn blue waves-button-input">ویرایش</a>
+                                                                    <a class="modal-trigger btnDelete btn red waves-button-input">حذف</a>
+                                                                   
+                                                                </td>
+                                                            </tr>
+
+                                                }
+                                            }
+                                        </tbody>
+
+                                    </table>
+@*                                     <div class="dataTables_paginate paging_simple_numbers" id="data-table-row-grouping_paginate">
+                                        <a class="paginate_button previous disabled" aria-controls="data-table-row-grouping" data-dt-idx="0" tabindex="-1" id="data-table-row-grouping_previous">قبلی</a>
+                                        <span>
+                                            @{
+                                                BLL.BlTeacher blc = new BLL.BlTeacher();
+                                                int f = blc.gettotal();
+                                                int count;
+                                                if (f % 10 == 0) count = f / 10;
+                                                else count = (f / 10) + 1;
+                                                for (var i = 0; i < count; i++)
+                                                {
+                                                    <a class="paginate_button current" aria-controls="data-table-row-grouping" data-dt-idx=@i tabindex="1" href=@Url.Action("getskip","teacher",new {c=i })>@i</a>
+                                                }
+                                            }
+                                        </span>
+                                            <a class="paginate_button next" aria-controls="data-table-row-grouping" data-dt-idx="4" tabindex="0" id="data-table-row-grouping_next">بعدی</a>
+                                    </div>
+ *@                                    @{
+                                        var next = ViewBag.CurrentPage + 1;
+                                        var previous = ViewBag.CurrentPage - 1;
+                                    }
+                                    <div id="view-pagination">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <ul class="pagination">
+                                                    <li class="@((ViewBag.CurrentPage <= 1) ? "hide" : "") ">
+                                                        <a asp-action="Showall" asp-controller="Teacher" asp-route-id="@previous">
+                                                            <i class="material-icons">chevron_left</i>
+                                                        </a>
+                                                    </li>
+
+                                                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                                    {
+                                                        <li class="@((ViewBag.CurrentPage == i) ? "active" : "")">
+                                                            <a asp-action="Showall" asp-controller="Teacher" asp-route-id="@i">@i</a>
+                                                        </li>
+                                                    }
+                                                    <li class="waves-effect @((ViewBag.CurrentPage == ViewBag.PageCount) ? "hide" : "")">
+                                                        <a asp-action="Showall" asp-controller="Teacher" asp-route-id="@next">
+                                                            <i class="material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/data-tables/js/dataTables.select.min.js"></script>
+    <script src="/js/scripts/data-tables.min.js"></script>
+    <script src="/js/scripts/advance-ui-modals.min.js"></script>
+    <script src="/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
+    <script src="/vendors/dropify/js/dropify.min.js"></script>
+    <script>
+
+        $("#searchInput").on("keyup", function () {
+                var search = $(this).val();
+                $.ajax({
+                url: "/teacher/search",
+                    data: { search },
+                    type: "Get",
+                    success: function (data) {
+                        $("#myTable").html('').html(data);
+                    },
+                });
+        });
+
+        $(document).ready(function () {
+
+        
+       
+            var currentRow;
+            String.prototype.toEnglishDigits = function () {
+                var num_dic = {
+                    '۰': '0',
+                    '۱': '1',
+                    '۲': '2',
+                    '۳': '3',
+                    '۴': '4',
+                    '۵': '5',
+                    '۶': '6',
+                    '۷': '7',
+                    '۸': '8',
+                    '۹': '9',
+                }
+
+                return parseInt(this.replace(/[۰-۹]/g, function (w) {
+                    return num_dic[w]
+                }));
+            }
+
+            $(".btnEdit").click(function () {
+                $('#modal1').modal('open');
+                currentRow = $(this).closest("tr");
+                $("#id").val(currentRow.find("td:eq(0)").text().toEnglishDigits());
+                $("#name").val(currentRow.find("td:eq(1)").text());
+                $("#family").val(currentRow.find("td:eq(2)").text());
+                $("#email").val(currentRow.find("td:eq(3)").text());
+                var col5 = currentRow.find("td:eq(4)").children('img').attr("id");
+                ("#pic").attr("data-default-file", "~/images/teacher/" + col5);
+            });
+            $(".btnDelete").click(function () {
+                $('#modal2').modal('open');
+                currentRow = $(this).closest("tr");
+                $("#deleteid").val(currentRow.find("td:eq(0)").text().toEnglishDigits());
+                $("#tname").text(currentRow.find("td:eq(1)").text());
+                $("#tfamily").text(currentRow.find("td:eq(2)").text());
+
+            });
+            $("#closeDelete").click(function () {
+                $("#modal2").modal("close");
+            })
+            $("#dlbtn").click(function () {
+                var iddelete = $("#deleteid").val();
+                $.ajax({
+                    url: "/teacher/Delete/",
+                    data: { iddelete },
+                    type: "Post",
+                    success: function (data) {
+                        $('#modal2').modal('close');
+                        $("#myTable").html('').html(data);
+                    },
+                    Error: function () {
+                        alert("خطا")
+                    }
+                });
+            });
+            $("#editForm").submit(function (e) {
+
+                var form = new FormData(this);
+                e.preventDefault();
+                $.ajax({
+                    url: "/teacher/update/",
+                    data: form,
+                    type: "Post",
+                    enctype: "multipart/form-data",
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        $('#modal1').modal('close');
+                        var name = $("#name").val();
+                        var family = $("#family").val();
+                        var email = $("#email").val();
+                        currentRow.find("td:eq(1)").text(name);
+                        currentRow.find("td:eq(2)").text(family);
+                        currentRow.find("td:eq(3)").text(email);
+
+                    },
+                    Error: function () {
+                        alert("خطا")
+                    }
+                });
+            });
+        });
+
+    </script>
+    }

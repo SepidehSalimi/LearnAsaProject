@@ -1,0 +1,206 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using DAL;
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using BLL;
+@using BE;
+@inject UserManager<AppUser> usermanager
+@inject IHttpContextAccessor httpContextAccessor
+
+@model EditProfileModel
+
+<div class="container">
+    <br />
+    @if (TempData["message"] != null)
+    {
+        <div id="alert-success" class="alert alert-success" style="color:green !important;text-align:center!important">
+            @TempData["message"]
+        </div>
+    }
+    <div class="row">
+        @{
+            var user = await usermanager.FindByNameAsync(User.Identity.Name);
+        }
+      
+        <div class="col-12 col-lg-3">
+            <div class="card bg-info my-5 p-5">
+            
+               
+            
+                    <img src="/images/user.png"
+                         class="img-fluid rounded-circle d-block mx-auto"
+                         width="120px"
+                         height="120px"
+                         alt="user-image" />
+             
+                <h5 class="text-white text-center mt-3">کاربر :  @user.FirstName @user.LastName</h5>
+            </div>
+            <div class="text-right">
+                <div class="list-group p-0 mb-5 profile">
+                  
+                    <a href="#shopping-cart"
+                       class="@ViewBag.ShowBasket list-group-item list-group-item-action"
+                       data-toggle="list">
+                        <i class="fa fa-shopping-cart align-middle ml-2"></i>سبد خرید
+                    </a>
+                    <a href="#ticket"
+                       class="list-group-item list-group-item-action"
+                       data-toggle="list">
+                        <i class="fa fa-tags align-middle ml-2"></i>تیکت ها
+                    </a>
+                    @* href="#user-change *@
+                    <a asp-action="EditProfile" asp-controller="Account"
+                       class="list-group-item list-group-item-action"
+                       >
+                        <i class="fa fa-address-card align-middle ml-2"></i> تغییر
+                        مشخصات
+                    </a>
+                    <a asp-action="logout" asp-controller="Account"
+                       class="list-group-item list-group-item-action">
+                        <i class="fa fa-window-close align-middle ml-2"></i> خروج
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-9">
+            <div class="tab-content">
+            
+
+                <!----- End dore signup ----->
+
+                <div class="@ViewBag.ShowBasket tab-pane fade show text-center" id="shopping-cart">
+                    <!----- Start shopping cart----->
+
+                    @{
+                       
+                        var coursesInBasket = new List<course>();
+                        var jsonItems = httpContextAccessor.HttpContext.Session.GetString("basket");
+
+                        if (jsonItems != null)
+                        {
+                            coursesInBasket = JsonConvert.DeserializeObject<List<course>>(jsonItems);
+                        }
+                    }
+                    <div class="card my-5 pb-4 text-center">
+                        <div class="card-header">
+                            <h6>سبد خرید</h6>
+                        </div>
+
+                        <div class="card-body mt-5">
+                            <div class="table-responsive">
+                                <table id="myTable" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>عکس</th>
+                                            <th>نام دوره</th>
+                                           
+                                            <th>قیمت دوره</th>
+                                            
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        @foreach (var item in coursesInBasket)
+                                        {
+                                         <tr>
+                                                <td hidden>@item.id</td>
+                                            <td>
+                                                <div class="product-img">
+                                                    <div class="img-prdct">
+                                                        <img src="~/images/bg-course.jpeg" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>@item.title</p>
+                                            </td>
+                                            <td>
+                                                <input type="text"
+                                                       value="@item.price"
+                                                       class="price form-control"
+                                                       disabled />
+                                            </td>
+                                           
+
+                                           
+                                         </tr>
+                                            
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                                <span class="font-13">قیمت کل :</span><span  class="mx-2">@coursesInBasket.Sum(s=>s.price)</span><span class="font-13">تومان</span>
+
+                                <a asp-action="Payment" asp-controller="Payment" class="btn btn-success btn-block mt-3 font-14">
+                                    پرداخت
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----- End shopping cart ----->
+
+                <div class="tab-pane fade show" id="ticket">
+                    <!----- Start ticket ----->
+                    <div class="card my-5">
+                        <div class="card-header text-center">
+                            <h6 class="mt-2 font-14">تیکت های شما</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="">
+                                        <div class="form-group">
+                                            <label for="title" class="text-right">عنوان</label>
+                                            <input id="title"
+                                                   class="form-control"
+                                                   type="text"
+                                                   name=""
+                                                   placeholder="عنوان مورد نظر خود را وارد کنید ..." />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="text">متن پیام</label>
+                                            <textarea id="text"
+                                                      class="form-control"
+                                                      name=""
+                                                      rows="3"
+                                                      placeholder="پیام خود را وارد کنید ..."></textarea>
+                                        </div>
+
+                                        <button type="submit"
+                                                class="btn btn-info btn-block font-13">
+                                            ارسال تیکت
+                                        </button>
+                                    </form>
+
+                                    <p class="font-14 my-5">لیست تیکت های شما :</p>
+
+                                    <div class="alert alert-warning">
+                                        <p class="font-13 vazir mt-3">
+                                            تاکنون تیکتی برای شما ثبت نشده است !
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----- End ticket ----->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#alert-success").fadeIn(1000).delay(3000).fadeOut(1000);
+        });
+    </script>
+}

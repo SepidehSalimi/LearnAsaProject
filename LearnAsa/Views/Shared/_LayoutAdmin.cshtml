@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+
+<html lang="fa">
+<head>
+   
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
+        <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
+        <meta name="author" content="ThemeSelect">
+        <title>فروشگاه لرن آسا</title>
+        <link rel="apple-touch-icon" href="~/images/favicon/apple-touch-icon-152x152.png">
+        <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon/favicon-32x32.png">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+        <link rel="stylesheet" type="text/css" href="~/vendors/vendors.min.css">
+                            
+        <link rel="stylesheet" type="text/css" href="~/css-rtl/style-rtl.css">
+                     
+        <link rel="stylesheet" type="text/css" href="~/css-rtl/themes/vertical-dark-menu-template/materialize.css">
+        <link rel="stylesheet" type="text/css" href="~/css-rtl/themes/vertical-dark-menu-template/style.css">
+        <link rel="stylesheet" type="text/css" href="~/css-rtl/pages/dashboard.css">
+                        
+        <link rel="stylesheet" type="text/css" href="~/css-rtl/custom/custom.css">
+    
+        <style>
+         .toast {
+            font-size: 0;
+            font-weight: 0;
+            line-height: 0;
+            position: none;
+            top: 0;
+            display: -webkit-none;
+            display: -webkit-none;
+            display: -ms-none;
+            display: none;
+            width: 0;
+            max-width: 0;
+            height: 0;
+          
+            cursor: none;
+           
+            border-radius: 2px;
+            background-color: none;
+            -webkit-box-align: none;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            }
+
+     
+            .waves-effect {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transition: .3s ease-out;
+            transition: .3s ease-out;
+            vertical-align: middle;
+            -webkit-tap-highlight-color: transparent;
+            }
+
+            .btn-floating {
+            line-height: 40px;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            overflow: hidden;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            cursor: pointer;
+            -webkit-transition: background-color .3s;
+            transition: background-color .3s;
+            vertical-align: middle;
+            color: #fff;
+            border-radius: 50%;
+            background-color: #03a9f4;
+            font-size: 1rem;
+            outline: 0;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+             }
+
+            .btn-floating i {
+                font-size: 1.2rem;
+                line-height: 40px;
+                display: inline-block;
+                width: inherit;
+                text-align: center;
+                color: #fff;
+            }
+
+   
+
+        </style> 
+        @RenderSection("Links", required: false)
+ 
+</head>
+<body>
+    <!-- BEGIN: Header-->
+    <header class="page-topbar" id="header">
+        <div class="navbar navbar-fixed">
+            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-light">
+                <div class="nav-wrapper">
+                    <div class="header-search-wrapper hide-on-med-and-down">
+                        <i class="material-icons">search</i>
+                        <input class="header-search-input z-depth-2" type="text" name="Search" placeholder="جستجو کردن" data-search="template-list">
+                        <ul class="search-list collection display-none"></ul>
+                    </div>
+                
+                 
+                   
+                    <!-- profile-dropdown-->
+                 
+                </div>
+                <nav class="display-none search-sm">
+                    <div class="nav-wrapper">
+                        <form id="navbarForm">
+                            <div class="input-field search-input-sm">
+                                <input class="search-box-sm mb-0" type="search" required="" id="search" placeholder="جستجو کردن" data-search="template-list">
+                                <label class="label-icon" for="search"><i class="material-icons search-sm-icon">search</i></label><i class="material-icons search-sm-close">close</i>
+                                <ul class="search-list collection search-list-sm display-none"></ul>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+            </nav>
+        </div>
+    </header>
+    <!-- END: Header-->
+    <!-- BEGIN: SideNav-->
+    <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
+        <div class="brand-sidebar">
+            <h1 class="logo-wrapper"><a class="brand-logo darken-1" asp-action="Index" asp-controller="Home"><img class="hide-on-med-and-down " src="~/images/logoo.png" alt="materialize logo" /><img class="show-on-medium-and-down hide-on-med-and-up" src="~/images/logo/materialize-logo-color.png" alt="materialize logo" /><span class="logo-text hide-on-med-and-down">لرن آسا</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+        </div>
+        <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="accordion">
+            
+           
+            
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="@Url.Action("Index","Teacher")"><i class="material-icons">person_add</i><span class="menu-title" data-i18n="Mail">ثبت استاد</span></a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="@Url.Action("Showall","Teacher")"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="Chat">لیست اساتید</span></a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="@Url.Action("Index","Course")"><i class="material-icons">add</i><span class="menu-title" data-i18n="ToDo">ثبت دوره ها</span></a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="@Url.Action("showcourse","Course")"><i class="material-icons">format_list_bulleted</i><span class="menu-title" data-i18n="Kanban">لیست دوره ها</span></a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="@Url.Action("Index","Home")">
+                    <i class="material-icons">
+                       
+                            arrow_back
+                        
+                    </i><span class="menu-title" data-i18n="Kanban">برگشت</span>
+                </a>
+            </li>
+           
+
+            
+        
+          
+        </ul>
+        <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+    </aside>
+    <!-- END: SideNav-->
+    <div id="main">
+        <main role="main" class="pb-3">
+            <div class="container">
+                <div class="row">
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
+
+  
+    <footer class="page-footer footer footer-static footer-light navbar-border navbar-shadow">
+        <div class="footer-copyright">
+            <div class="container"><span>&copy; 1403 <a href="https://www.LearnAsa" target="_blank">تیم لرن آسا</a> تمامی حقوق محفوظ است</span><span class="right hide-on-small-only">بومی سازی شده توسط <a href="https://LearnAsa.ir/">تیم لرن آسا</a></span></div>
+        </div>
+    </footer>
+
+    <script src="~/js/vendors.min.js"></script>    
+    <script src="~/vendors/chartjs/chart.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/search.js"></script>
+    <script src="~/js/custom/custom-script.js"></script>
+    <script src="~/js/scripts/dashboard-ecommerce.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,308 @@
+﻿@model List<BE.course>
+
+@{
+    ViewData["Title"] = "نمایش دوره ها";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section Links {
+
+    <link rel="stylesheet" type="text/css" href="/vendors/flag-icon/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/select.dataTables.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/pages/data-tables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/dropify/css/dropify.min.css">
+ 
+}
+
+<div id="modal1" class="modal">
+    <div class="modal-content mb-5">
+        <div class="modal-header">
+            <h5 class="mt-0 modal-title" id="modal-title"></h5>
+        </div>
+        <div id="modal-body2">
+            <p>برای افزودن ویدیو به دوره  <span class="purple-text modal-title"></span> ویدیو های مورد نظر خود را در انتخاب نمایید</p>
+            <form id="formfile">
+                <div class="row">
+                    <input type="hidden" name="id" id="CourseId" />
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label>نام</label>
+                            <input name="name" id="name" type="text" />
+                        </div>
+                    </div>
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>ویدیو</span>
+                            <input name="videos" id="video" type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" id="videonames" type="text">
+                        </div>
+                    </div>
+                    <div class="input-field col s12">
+                        <label>توضیحات</label>
+                        <textarea name="description" id="description" class="min-height-150 mt-2"> </textarea>
+                    </div>
+                    <div class="input-field col s12">
+                        <button class="btn green waves-effect waves-light right" type="submit" id="addfileBtn">
+                            افزودن
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <button class="btn red waves-effect waves-light right " style="margin-left:5px" type="button" id="closeaddfile">
+                            انصراف
+                            <i class="material-icons right">cancel</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="modal2" class="modal">
+    <div class="modal-content mb-5">
+        <div class="modal-header">
+            <h5 class="mt-0" id="modal-title">فرم حذف دوره</h5>
+        </div>
+        <div id="modal-body2">
+            <p>آیا مایل هستید دوره  <span class="purple-text" id="ttitle"></span> <span class="purple-text" id="tteachers"></span> را حذف کنید؟</p>
+
+            <input type="hidden" name="id" id="deleteid" value="" />
+            <div class="input-field col s12">
+                <button class="btn red waves-effect waves-light right" type="button" id="deletesend">
+                    بله
+                    <i class="material-icons right">send</i>
+                </button>
+                <button class="btn cyan waves-effect waves-light right " style="margin-left:5px" type="button" id="closeDelete">
+                    خیر
+                    <i class="material-icons right">cancel</i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col s12">
+    <div class="container">
+        <div class="section section-data-tables">
+            <div class="card">
+                <div class="card-content">
+                    <p class="caption mb-0">
+                        <a asp-controller="course" asp-action="index" class=" btn 039be5 light-blue darken-1 border-round"><i class="material-icons">add ثبت دوره جدید</i></a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title">لیست دوره ها</h4>
+                            <p>
+                                <input type="text" name="search" class="form-control col m3" placeholder="جستجو کنید ..." id="searchInput" />
+                            </p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table id="myTable" class="table striped responsive-table centered">
+                                        <thead>
+                                            <tr>
+                                                <th>عنوان</th>
+                                                <th>قیمت</th>
+                                                <th>زمان دوره</th>
+                                                <th>تعداد ویدیو ها</th>
+                                                <th>توضیحات</th>
+                                                <th>دستورات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="myTable">
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td hidden>@item.id</td>
+                                                    <td>@item.title</td>
+                                                    <td>@item.price</td>
+                                                    <td>@item.totaltime</td>
+                                                    <td>
+                                                        @{
+                                                            BLL.BlCourse b = new BLL.BlCourse();
+                                                            int count = b.getVideoCount(item.id);
+                                                                <span>@count</span>
+                                                        }
+                                                    </td>
+                                                    <td>@item.descript</td>
+                                                    <td>
+                                                        <a asp-action="Edit" asp-controller="Course" asp-route-id="@item.id" class=" btn blue waves-button-input">ویرایش</a>
+                                                        <a class="modal-trigger btnDelete btn red waves-button-input">حذف</a>
+                                                        
+                                                        <a class="btn cyan waves-button-input" asp-route-page="1" asp-action="Details" asp-route-id="@item.id">نمایش اطلاعات کامل</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                            
+                                     @{
+                                        var next = ViewBag.CurrentPage + 1;
+                                        var previous = ViewBag.CurrentPage - 1;
+                                    }
+                                    <div id="view-pagination">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <ul class="pagination">
+                                                    <li class="@((ViewBag.CurrentPage <= 1) ? "hide" : "") ">
+                                                        <a asp-action="showcourse" asp-controller="course" asp-route-id="@previous">
+                                                            <i class="material-icons">chevron_left</i>
+                                                        </a>
+                                                    </li>
+
+                                                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                                    {
+                                                        <li class="@((ViewBag.CurrentPage == i) ? "active" : "")">
+                                                            <a asp-action="showcourse" asp-controller="course" asp-route-id="@i">@i</a>
+                                                        </li>
+                                                    }
+                                                    <li class="waves-effect @((ViewBag.CurrentPage == ViewBag.PageCount) ? "hide" : "")">
+                                                        <a asp-action="showcourse" asp-controller="course" asp-route-id="@next">
+                                                            <i class="material-icons">chevron_right</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script src="/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/data-tables/js/dataTables.select.min.js"></script>
+
+    <script src="/js/scripts/data-tables.min.js"></script>
+
+    <script src="/js/scripts/advance-ui-modals.min.js"></script>
+
+    <script src="/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
+    <script src="/vendors/dropify/js/dropify.min.js"></script>
+    <script>
+       
+            $("#searchInput").on("keyup", function () {
+                var search = $(this).val();
+                $.ajax({
+                    url: "/course/search",
+                    data: { search },
+                    type: "Get",
+
+                    success: function (data) {
+                        $("#myTable").html('').html(data);
+                    },
+                 
+                });
+              
+            });
+        
+     
+
+        $(document).ready(function () {
+            var currentRow;
+            String.prototype.toEnglishDigits = function () {
+                var num_dic = {
+                    '۰': '0',
+                    '۱': '1',
+                    '۲': '2',
+                    '۳': '3',
+                    '۴': '4',
+                    '۵': '5',
+                    '۶': '6',
+                    '۷': '7',
+                    '۸': '8',
+                    '۹': '9',
+                }
+
+                return parseInt(this.replace(/[۰-۹]/g, function (w) {
+                    return num_dic[w]
+                }));
+            }
+            $("#closeaddfile").click(function () {
+                $("#videos").val("");
+                $("#videonames").val("");
+                $("#CourseId").val("");
+                $("#modal1").modal("close");
+            });
+            $(".btnAddFile").click(function () {
+                $('#modal1').modal('open');
+                currentRow = $(this).closest("tr");
+                $("#CourseId").val(currentRow.find("td:eq(0)").text().toEnglishDigits());
+                $(".modal-title").text(currentRow.find("td:eq(1)").text());
+
+            });
+            $("#closeDelete").click(function () {
+                $("#modal2").modal("close");
+            })
+            $("#formfile").submit(function (e) {
+                e.preventDefault();
+                var CourseId = $("#CourseId").val();
+                var model = new FormData(this);
+
+
+                $.ajax({
+                    url: "/course/AddFile",
+                    data: model,
+                    type: "Post",
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        window.location.href = '/course/showcourse';
+                    },
+                    Error: function () {
+                        alert("خطا")
+                    }
+                });
+            })
+            $(".btnDelete").click(function () {
+                $('#modal2').modal('open');
+                currentRow = $(this).closest("tr");
+                $("#deleteid").val(currentRow.find("td:eq(0)").text().toEnglishDigits());
+                $("#ttitle").text(currentRow.find("td:eq(1)").text());
+
+            });
+            $("#deletesend").click(function () {
+                var iddelete = $("#deleteid").val();
+                $.ajax({
+                    url: "/course/Delete/",
+                    data: { iddelete },
+                    type: "Post",
+                    success: function (data) {
+                        $('#modal2').modal('close');
+                        $("#myTable").html('').html(data);
+                    },
+                    Error: function () {
+                        alert("خطا")
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

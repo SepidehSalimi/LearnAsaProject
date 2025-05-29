@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "ثبت دوره";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Links{
+    <link rel="stylesheet" type="text/css" href="/vendors/dropify/css/dropify.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendors/data-tables/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/pages/data-tables.min.css">
+}
+
+@model List<BE.Teacher>
+
+<div id="basic-form" class="card card card-default scrollspy">
+    <div class="card-content">
+        <h4 class="card-title">فرم ثبت دوره</h4>
+        <form asp-action="create" asp-asp-controller="Course" enctype="multipart/form-data">
+           
+            <div class="row">
+                <div class=" red-text" asp-validation-summary="All">
+
+                </div>
+                <div id="modal1" class="modal">
+                    <div class="modal-content mb-5">
+                        <div class="modal-header">
+                            <h5 class="mt-0" id="modal-title">اساتید موردنظر را انتخاب نمایید</h5>
+                        </div>
+                        <div id="modal-body2">
+                            <div class="row">
+                                @foreach (var item in ViewBag.teachers)
+                                {
+                                    <div class="col s4">
+                                        <label>
+                                            <input type="checkbox" name="teachers" class="form-control tch" value="@item.id" />
+                                            <span class="black-text">@item.name @item.family</span>
+                                        </label>
+
+                                    </div>
+                                }
+                            </div>
+                            <a class="btn blue waves-light mt-2 right" id="btnsave">انتخاب</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="title">
+                        <label class="contact-input">عنوان</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="number" name="price">
+                        <label class="contact-input">قیمت</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="number" name="totaltime">
+                        <label class="contact-input">زمان دوره</label>
+                    </div>
+                    <div class=" col s12 ">
+                       
+                        <button class="btn btn-info" id="SelectTeacher" name="teachers">برای انتخاب اساتید کلیک کنید..</button>
+
+                    </div>
+
+                    <input hidden name="teachers" id="teachers"/>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col m12">
+                        <label>ویدیوی مقدماتی</label>
+                        <input name="videointro" type="file" id="input-file-now" class="dropify" data-default-file="" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class=" col s12">
+                        <label>توضیحات</label>
+                        <textarea name="descript" class="min-height-250"></textarea>
+
+                    </div>
+
+                </div>
+        
+
+                <div class="input-field col s12">
+                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                        ارسال
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+
+
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/js/scripts/advance-ui-modals.min.js"></script>
+    <script src="/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/data-tables/js/dataTables.select.min.js"></script>
+    <script src="/js/scripts/data-tables.min.js"></script>
+    <script src="/js-rtl/scripts/form-file-uploads-rtl.min.js"></script>
+    <script src="/vendors/dropify/js/dropify.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#SelectTeacher").focus(function () {
+                $("#modal1").modal('open');
+            });
+
+            $("#btnsave").click(function () {
+                $("#modal1").modal('close');
+                var ids = [];
+                $(':checkbox:checked').each(function (i) {
+                    var chekboxValue = $(this).val();
+
+                    if (chekboxValue !== "on") {
+                        ids.push(chekboxValue);
+                    }
+
+                });
+                
+
+                ids.each(function (i) {
+                    var teacher = $("#teachers").val();
+                    teacher.push(ids[i]);
+                })
+
+            });
+
+
+        });
+    </script>
+
+    }

@@ -1,0 +1,124 @@
+﻿@* Register *@
+@{
+    Layout = null;
+
+}
+@model RegisterModel
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت نام </title>
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap-rtl.css">
+    <link rel="stylesheet" href="~/css/customcss/style.css">
+    <link rel="stylesheet" href="~/css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" type="text/css" href="slide navbar style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+    <!----- Start sign up box ----->
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-lg-7 col-xl-6 col-md-9 register">
+
+                <div class="card my-5">
+
+                    <div class="card-body">
+                        <h5 class="shadow-sm text-center mb-4 py-3"> عضویت در سایت </h5>
+
+                        <form asp-action="Register" asp-controller="Account" method="post">
+
+                            <div class="form-group">
+                                <label for="fname"> نام : </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"><i class="fa fa-user align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="FirstName" type="text" class="form-control" id="name" name="FirstName" placeholder="نام خود را وارد کنید">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="family">نام خانوادگی :</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"> <i class="fa fa-user align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="LastName" type="text" class="form-control" name="LastName" placeholder="نام خانوادگی خود را وارد کنید ">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""> ایمیل : </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"> <i class="fa fa-envelope align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="Email" type="email" class="form-control" name="Email" placeholder=" ایمیل خود را وارد کنید">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">نام کاربری : </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"> <i class="fa fa-user-plus align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="Username" type="text" class="form-control" name="Username" placeholder="نام کاربری خود را وارد کنید ">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""> رمز عبور : </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"> <i class="fa fa-lock align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="Password" type="password" class="form-control" name="Password" placeholder="رمز عبور خود را وارد کنید">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">تکرار رمز عبور : </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text  my-icon"> <i class="fa fa-lock align-middle"></i></span>
+                                    </div>
+                                    <input asp-for="PasswordTow" type="password" class="form-control" name="PasswordTow" placeholder="رمز عبور خود را وارد کنید">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block rounded-pill custom-btn font-13 mt-4" name="signup_btn">ثبت نام</button>
+
+
+                            <div class="row">
+                                <div style="color:red!important;text-align:center!important">
+                                    @Html.ValidationSummary()
+                                </div>
+                            </div>
+
+                            <p class="text-center my-3 font-12 vazir">قبلا در سایت ثبت نام کرده اید ؟ <a asp-action="Login" asp-controller="Account" class="login vazir">وارد شوید</a></p>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----- End sign up box ----->
+
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/myscript.js"></script>
+</body>
+</html>

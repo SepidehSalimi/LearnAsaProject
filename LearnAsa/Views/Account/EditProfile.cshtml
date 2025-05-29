@@ -1,0 +1,93 @@
+﻿@model EditProfileModel;
+   
+            
+<div class="tab-pane fade show text-right" id="user-change">
+   <div class="card my-5">
+                        <div class="card-header">
+                           @if (TempData["message"] != null)
+                           {
+                             <div id="alert-success" class="alert alert-success" style="color:green !important;text-align:center!important">
+                               @TempData["message"]
+                             </div>
+                           }
+                            <h6 class="mt-2 font-14 text-center">مشخصات کاربری</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="card text-right my-3">
+                                <div class="card-header bg-primary text-center pb-0 text-white">
+                                    <p class="font-13">مشخصات کاربری شما :</p>
+                                </div>
+                                <div class="card-body">
+                                    <form asp-action="EditProfile" asp-controller="Account" method="post" enctype="multipart/form-data">
+                                        @* @Html.AntiForgeryToken(); *@
+                                        <div class="form-group">
+                                            <p>نام :</p>
+                            <input name="FirstName" type="text"
+                                                   class="form-control"
+                                                   value="@Model.FirstName" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>نام خانوادگی :</p>
+                            <input name="LastName" type="text"
+                                                   class="form-control"
+                                                   value="@Model.LastName" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>رمز عبور :</p>
+                            <input name="Password" type="password"
+                                                   class="form-control"
+                                                   value="@Model.Password" />
+                                        </div>
+                  
+                      @*   <div class="custom-file my-4">
+                            <input name="PicProfile" type="file"
+                                   class="custom-file-input"
+                                   id="PicProfile" asp-for="PicProfile"/>
+                            <label class="custom-file-label" for="customFile">انتخاب عکس</label>
+                          
+                        </div> *@
+                      
+
+
+                                        <div class="form-group">
+                                            <p>نام کاربری :</p>
+                            <input name="Username" type="text"
+                                                   class="form-control"
+                                                   value="@Model.Username"
+                                                   readonly
+                                                   style="cursor: no-drop" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>ایمیل :</p>
+                            <input name="Email" type="email"
+                                                   class="form-control"
+                                                   value="@Model.Email"
+                                                   readonly
+                                                   style="cursor: no-drop" />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block my-4 font-13">
+                                                ثبت تغییرات
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+   </div>
+
+</div>
+
+   
+
+@section Scripts {
+    <script>
+        document.getElementById("PicProfile").addEventListener("change", function (event) {
+            let filename = event.target.files[0]?.name || "";
+            document.getElementById("PicProfilePath").value = "/upload/" + filename;
+        });
+    </script>
+}
